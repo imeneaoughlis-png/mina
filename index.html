@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Class SQL - Révision Totale</title>
+    <style>
+        :root { --primary: #1e293b; --accent: #2563eb; --bg: #f8fafc; --white: #ffffff; }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: #334155; line-height: 1.6; margin: 0; padding: 20px; }
+        .container { max-width: 1100px; margin: auto; }
+        .header { background: var(--primary); color: white; padding: 40px 20px; border-radius: 20px; text-align: center; margin-bottom: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        h1 { margin: 0; font-size: 2.5rem; }
+        h2 { color: var(--accent); border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 40px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: var(--white); padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .badge { background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 99px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        pre { background: #0f172a; color: #e2e8f0; padding: 15px; border-radius: 10px; overflow-x: auto; font-size: 0.9rem; border-left: 5px solid var(--accent); }
+        code { font-family: 'Fira Code', monospace; }
+        .exo-section { background: #fff; border: 2px solid var(--accent); padding: 30px; border-radius: 20px; margin-top: 40px; }
+        .qst { background: #f1f5f9; padding: 15px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid #94a3b8; }
+        .correction { display: none; margin-top: 20px; animation: fadeIn 0.5s; }
+        button { background: var(--accent); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; font-weight: bold; width: 100%; transition: 0.3s; }
+        button:hover { background: #1d4ed8; transform: translateY(-2px); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
+        th { background: #f8fafc; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🚀 Grand Récapitulatif SQL</h1>
+        <p>Création, Manipulation, Nettoyage et Requêtes Avancées</p>
+    </div>
+
+    <h2>1. Guide Complet des Commandes (Le "Cheat Sheet")</h2>
+    <div class="grid">
+        <div class="card">
+            <span class="badge">DDL : Création & Structure</span>
+            <ul>
+                <li><code>CREATE SCHEMA nom;</code> : Organiser tes tables.</li>
+                <li><code>CREATE TABLE (...)</code> : Définir colonnes et types.</li>
+                <li><code>SERIAL PRIMARY KEY</code> : Auto-incrément automatique.</li>
+                <li><code>REFERENCES table(col)</code> : Créer une Clé Étrangère.</li>
+                <li><code>ALTER TABLE ... ADD/DROP/RENAME</code> : Modifier la structure.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <span class="badge">DML : Manipulation des Données</span>
+            <ul>
+                <li><code>INSERT INTO ... VALUES</code> : Ajouter des lignes.</li>
+                <li><code>UPDATE ... SET ... WHERE</code> : Modifier (Ne pas oublier le WHERE !).</li>
+                <li><code>DELETE FROM ... WHERE</code> : Supprimer des lignes spécifiques.</li>
+                <li><code>TRUNCATE</code> : Vider une table proprement.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <span class="badge">DQL : Sélection & Affichage</span>
+            <ul>
+                <li><code>SELECT DISTINCT</code> : Éviter les doublons.</li>
+                <li><code>ORDER BY ... ASC/DESC</code> : Trier les résultats.</li>
+                <li><code>LIMIT n</code> : Afficher seulement les n premières lignes.</li>
+                <li><code>LIKE '%txt%'</code> : Recherche textuelle partielle.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <span class="badge">Fonctions & Nettoyage (TP3)</span>
+            <ul>
+                <li><code>UPPER() / LOWER()</code> : Harmoniser la casse.</li>
+                <li><code>TRIM()</code> : Enlever les espaces inutiles.</li>
+                <li><code>CAST(col AS type)</code> : Convertir (ex: Text vers Decimal).</li>
+                <li><code>COALESCE(col, 'Remplaçant')</code> : Gérer les valeurs NULL.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="exo-section">
+        <h2>2. Examen Blanc : Étude de Cas "Gestion d'une Librairie"</h2>
+        <p><em>Mélange de tes TP1, TP2 et TP3. Réalise ces 12 étapes dans l'ordre :</em></p>
+        
+        <div class="qst"><strong>Q1.</strong> Crée un schéma <code>bibliotheque</code>.</div>
+        <div class="qst"><strong>Q2.</strong> Crée une table <code>auteurs</code> (id SERIAL, nom, pays) et une table <code>livres</code> (id SERIAL, titre, prix_ht, id_auteur).</div>
+        <div class="qst"><strong>Q3.</strong> Ajoute une contrainte de clé étrangère entre <code>livres</code> et <code>auteurs</code>.</div>
+        <div class="qst"><strong>Q4.</strong> Ajoute une colonne <code>stock</code> de type INTEGER à la table livres.</div>
+        <div class="qst"><strong>Q5.</strong> Insère 3 auteurs et 5 livres (certains avec des prix > 5000 et d'autres < 1000).</div>
+        <div class="qst"><strong>Q6.</strong> (TP3) Un employé a saisi ' France ' et 'france'. Fais un UPDATE pour que tous les pays soient en majuscules et sans espaces.</div>
+        <div class="qst"><strong>Q7.</strong> Affiche tous les livres dont le titre commence par la lettre 'L'.</div>
+        <div class="qst"><strong>Q8.</strong> Affiche le titre du livre et le nom de son auteur (JOINTURE).</div>
+        <div class="qst"><strong>Q9.</strong> Calcule la valeur totale du stock (Prix * Stock) pour chaque livre.</div>
+        <div class="qst"><strong>Q10.</strong> Quel est le prix moyen des livres par auteur ?</div>
+        <div class="qst"><strong>Q11.</strong> Augmente le prix de tous les livres de l'auteur ID n°1 de 15%.</div>
+        <div class="qst"><strong>Q12.</strong> Supprime tous les livres dont le stock est égal à 0.</div>
+
+        <button onclick="showCorr()">Révéler la Correction Complète 📝</button>
+
+        <div id="corr" class="correction">
+            <h3>✅ Correction Détaillée</h3>
+            <pre><code>-- Q1 & Q2 : Structure
+CREATE SCHEMA bibliotheque;
+
+CREATE TABLE bibliotheque.auteurs (
+    id_auteur SERIAL PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    pays VARCHAR(50)
+);
+
+CREATE TABLE bibliotheque.livres (
+    id_livre SERIAL PRIMARY KEY,
+    titre VARCHAR(200),
+    prix_ht DECIMAL(10,2),
+    id_auteur INT
+);
+
+-- Q3 & Q4 : Modifications
+ALTER TABLE bibliotheque.livres 
+ADD CONSTRAINT fk_auteur FOREIGN KEY (id_auteur) 
+REFERENCES bibliotheque.auteurs(id_auteur);
+
+ALTER TABLE bibliotheque.livres ADD COLUMN stock INT DEFAULT 0;
+
+-- Q5 : Insertion
+INSERT INTO bibliotheque.auteurs (nom, pays) VALUES ('Victor Hugo', 'France'), ('Kateb Yacine', 'Algerie');
+INSERT INTO bibliotheque.livres (titre, prix_ht, id_auteur, stock) VALUES 
+('Les Misérables', 2500, 1, 10),
+('Nedjma', 1800, 2, 5),
+('L''Homme qui rit', 3000, 1, 0);
+
+-- Q6 : Nettoyage (Style TP3)
+UPDATE bibliotheque.auteurs 
+SET pays = UPPER(TRIM(pays));
+
+-- Q7, Q8, Q9 : Sélection
+SELECT * FROM bibliotheque.livres WHERE titre LIKE 'L%';
+
+SELECT l.titre, a.nom 
+FROM bibliotheque.livres l
+JOIN bibliotheque.auteurs a ON l.id_auteur = a.id_auteur;
+
+SELECT titre, (prix_ht * stock) AS valeur_inventaire FROM bibliotheque.livres;
+
+-- Q10 : Agrégation
+SELECT id_auteur, AVG(prix_ht) 
+FROM bibliotheque.livres 
+GROUP BY id_auteur;
+
+-- Q11 : Mise à jour calculée
+UPDATE bibliotheque.livres 
+SET prix_ht = prix_ht * 1.15 
+WHERE id_auteur = 1;
+
+-- Q12 : Suppression conditionnelle
+DELETE FROM bibliotheque.livres WHERE stock = 0;</code></pre>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showCorr() {
+        document.getElementById('corr').style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
